@@ -3,4 +3,4 @@ project(C___Implementation)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(C___Implementation main.cpp)
+add_executable(C___Implementation Fruit.cpp Fruit.h Tree.cpp Tree.h)
