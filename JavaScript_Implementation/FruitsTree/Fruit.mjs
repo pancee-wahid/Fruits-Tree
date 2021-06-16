@@ -53,7 +53,6 @@ Berry.prototype = {
     }
 };
 
-
 function Apple() {}
 Apple.prototype = {
     __proto__: ovalShaped.prototype,

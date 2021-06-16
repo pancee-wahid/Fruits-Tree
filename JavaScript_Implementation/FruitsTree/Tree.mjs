@@ -79,16 +79,11 @@ class Tree {
     }
 
     iterate() {
-        return this.inOrder.call(this, this.root);
-    }
-
-    inOrder(node) {
-        if (node !== null) {
-            //console.log(node.right.getWeight());
-            this.inOrder.call(this, node.left);
-            console.log(node.getType() + " " + node.getWeight() + " gm");
-            this.inOrder.call(this, node.right);
-        }
+        let list = [];
+        this.getList.call(this, root, list);
+        list.forEach(x => {
+            console.log(x.getType() + " " + x.getWeight() + " gm");
+        });
     }
     filterByType(type) {
         let list = [];
@@ -96,20 +91,11 @@ class Tree {
         this.getList.call(this, this.root, list);
         list.forEach(x => {
             if (x instanceof type) {
-                // console.log(x.getType() + " " + x.getWeight() + " gm");
                 outputList.push(x)
             }
         });
         return outputList
     }
-    getList(node, list) {
-        if (node !== null) {
-            this.getList.call(this, node.left, list);
-            list.push(node)
-            this.getList.call(this, node.right, list);
-        }
-    }
-
     filterByWeight(weight) {
         let list = [];
         this.getList.call(this, this.root, list);
@@ -119,8 +105,6 @@ class Tree {
             }
         });
     }
-
-
     magnifyByType(type, weight) {
         let removed = this.filterByType.call(this, type);
         removed.forEach(x => {
@@ -133,11 +117,22 @@ class Tree {
             this.insert.call(this, x.getWeight(), x.getType());
         });
     }
-
+    findHeaviest() {
+        return this.findMax.call(this, this.root);
+    }
+    findLightest() {
+        return this.findMin.call(this, this.root);
+    }
+    getList(node, list) {
+        if (node !== null) {
+            this.getList.call(this, node.left, list);
+            list.push(node)
+            this.getList.call(this, node.right, list);
+        }
+    }
     remove(weight) {
         this.root = this.removeNode.call(this, this.root, weight);
     }
-
     removeNode(node, weight) {
         // if the root is null then tree is
         // empty
@@ -198,22 +193,12 @@ class Tree {
             return node;
         }
     }
-
-    findLightest() {
-        return this.findMin.call(this, this.root);
-    }
-
     findMin(node) {
         if (node.left === null)
             return node;
         else
             return this.findMin.call(this, node.left);
     }
-
-    findHeaviest() {
-        return this.findMax.call(this, this.root);
-    }
-
     findMax(node) {
         if (node.right === null)
             return node;
