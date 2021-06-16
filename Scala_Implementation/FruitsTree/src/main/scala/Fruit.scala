@@ -7,5 +7,4 @@
   def getLeft: Fruit = left
   def getRight: Fruit = right
   def getParent: Fruit = parent
-  //def getType: String = "A fruit"
 }

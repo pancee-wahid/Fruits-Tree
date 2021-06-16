@@ -1,0 +1,3 @@
+class Elderberry extends Berry {
+
+}

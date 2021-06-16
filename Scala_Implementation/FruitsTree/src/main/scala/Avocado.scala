@@ -1,0 +1,3 @@
+class Avocado extends OvalShaped{
+
+}

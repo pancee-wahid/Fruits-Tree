@@ -1,0 +1,3 @@
+class Blackberry extends Berry {
+
+}
