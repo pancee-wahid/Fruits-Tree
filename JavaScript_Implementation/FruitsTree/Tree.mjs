@@ -1,4 +1,4 @@
-import { Fruit, ovalShaped, Berry, tinyFruit, Apple, Avocado, Blackberries, Elderberries } from './Fruit.mjs';
+import { Fruit, ovalShaped, Berry, tinyFruit, Citrus, Apple, Avocado, Blackberries, Elderberries, Lemon, Orange, Tangerine } from './Fruit.mjs';
 class Tree {
     constructor() {
         this.root = null;
@@ -12,6 +12,9 @@ class Tree {
                 break;
             case "TinyFruit":
                 newFruit = Object.create(tinyFruit.prototype);
+                break;
+            case "Citrus":
+                newFruit = Object.create(Citrus.prototype);
                 break;
             case "Berry":
                 newFruit = Object.create(Berry.prototype);
@@ -28,6 +31,14 @@ class Tree {
             case "Elderberry":
                 newFruit = Object.create(Elderberries.prototype);
                 break;
+            case "Lemon":
+                newFruit = Object.create(Lemon.prototype);
+                break;
+            case "Orange":
+                newFruit = Object.create(Orange.prototype);
+                break;
+            case "Tangerine":
+                newFruit = Object.create(Tangerine.prototype);
             default:
                 newFruit = Object.create(Fruit.prototype);
                 break;
@@ -80,11 +91,12 @@ class Tree {
 
     iterate() {
         let list = [];
-        this.getList.call(this, root, list);
+        this.getList.call(this, this.root, list);
         list.forEach(x => {
             console.log(x.getType() + " " + x.getWeight() + " gm");
         });
     }
+
     filterByType(type) {
         let list = [];
         let outputList = [];
@@ -96,6 +108,7 @@ class Tree {
         });
         return outputList
     }
+
     filterByWeight(weight) {
         let list = [];
         this.getList.call(this, this.root, list);
@@ -105,6 +118,7 @@ class Tree {
             }
         });
     }
+
     magnifyByType(type, weight) {
         let removed = this.filterByType.call(this, type);
         removed.forEach(x => {
@@ -117,12 +131,15 @@ class Tree {
             this.insert.call(this, x.getWeight(), x.getType());
         });
     }
+
     findHeaviest() {
         return this.findMax.call(this, this.root);
     }
+
     findLightest() {
         return this.findMin.call(this, this.root);
     }
+
     getList(node, list) {
         if (node !== null) {
             this.getList.call(this, node.left, list);
@@ -130,9 +147,11 @@ class Tree {
             this.getList.call(this, node.right, list);
         }
     }
+
     remove(weight) {
         this.root = this.removeNode.call(this, this.root, weight);
     }
+
     removeNode(node, weight) {
         // if the root is null then tree is
         // empty
@@ -193,12 +212,14 @@ class Tree {
             return node;
         }
     }
+
     findMin(node) {
         if (node.left === null)
             return node;
         else
             return this.findMin.call(this, node.left);
     }
+
     findMax(node) {
         if (node.right === null)
             return node;
@@ -210,23 +231,24 @@ class Tree {
 
 var BST = new Tree();
 BST.insert(12, "Apple");
-BST.insert(15, "Orange");
-BST.insert(5, "Avocado")
-BST.insert(15, "Orange");
+BST.insert(13, "Lemon");
+BST.insert(5, "Avocado");
 BST.insert(8, "Blackberry");
-BST.insert(15, "Elderberry");
 
 BST.iterate();
 console.log("------------------------");
-BST.filterByType(ovalShaped).forEach(x => {
+BST.filterByType(Citrus).forEach(x => {
     console.log(x.getWeight() + " " + x.getType());
 });
 console.log("------------------------");
 BST.filterByWeight(12);
 console.log("------------------------");
-BST.magnifyByType(Apple, 3);
+BST.magnifyByType(Apple, 4);
 BST.iterate();
 console.log("------------------------");
 console.log(BST.findLightest().getWeight() + " " + BST.findLightest().getType());
 console.log("------------------------");
 console.log(BST.findHeaviest().getWeight() + " " + BST.findHeaviest().getType());
+console.log("------------------------");
+BST.magnifyByType(ovalShaped, 4);
+BST.iterate();

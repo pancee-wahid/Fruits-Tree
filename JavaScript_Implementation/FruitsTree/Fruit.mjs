@@ -22,7 +22,7 @@ Fruit.prototype = {
     },
 
     getType: function() {
-        return "Regular";
+        return " ";
     }
 };
 
@@ -43,6 +43,15 @@ tinyFruit.prototype = {
         return "TinyFruit";
     }
 };
+
+function Citrus() {}
+Citrus.prototype = {
+    __proto__: Fruit.prototype,
+
+    getType: function() {
+        return "Citrus";
+    }
+}
 
 function Berry() {}
 Berry.prototype = {
@@ -89,4 +98,31 @@ Elderberries.prototype = {
     }
 }
 
-export { Fruit, ovalShaped, Berry, tinyFruit, Apple, Avocado, Blackberries, Elderberries };
+function Lemon() {}
+Lemon.prototype = {
+    __proto__: Citrus.prototype,
+
+    getType: function() {
+        return "Lemon";
+    }
+}
+
+function Orange() {}
+Orange.prototype = {
+    __proto__: Citrus.prototype,
+
+    getType: function() {
+        return "Orange";
+    }
+}
+
+function Tangerine() {}
+Tangerine.prototype = {
+    __proto__: Citrus.prototype,
+
+    getType: function() {
+        return "Tangerine";
+    }
+}
+
+export { Fruit, ovalShaped, Berry, tinyFruit, Citrus, Apple, Avocado, Blackberries, Elderberries, Lemon, Orange, Tangerine };

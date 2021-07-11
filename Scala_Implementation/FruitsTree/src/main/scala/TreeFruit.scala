@@ -4,28 +4,36 @@ class TreeFruit {
   var root : Fruit = null
   def getRoot: Fruit = root
 
+
   def iterate(): Unit = {
     getFruitList().foreach(x =>println(x.getClass.getSimpleName + " " + x.getWeight))
 
   }
+
   def filterByType[T](t : Class[T]): Unit ={
     getFruitList().filter(p => t.isAssignableFrom(p.getClass)).foreach(x =>println(x.getClass.getSimpleName + " " + x.getWeight))
   }
+
   def filterByWeight(weight : Int): Unit ={
     getFruitList().filter(_.weight > weight).foreach(x =>println(x.getClass.getSimpleName + " " + x.getWeight))
   }
+
   def magnifyByType[T](Type: Class[T], weight: Int): Unit ={
     val list = getFruitList().collect { case x if Type.isAssignableFrom(x.getClass) => x }
     list.foreach(x => remove(x.weight))
     list.foreach(x=>x.weight += weight)
     list.foreach(x => insert(x.weight, x.getClass.getSimpleName))
   }
+
   def findHeaviest() :Fruit = {
     findMaxValue(root)
   }
+
   def findLightest() :Fruit = {
     findSmallestValue(root)
   }
+
+
 //helping methods
   def insert(weight: Int, Type: String): Unit = {
     var node : Fruit = new Fruit
@@ -34,10 +42,14 @@ class TreeFruit {
       case "OvalShaped" => node = new OvalShaped()
       case "TinyFruit" => node = new TinyFruit()
       case "Berry" => node = new Berry()
+      case "Citrus" => node = new Citrus()
       case "Apple" => node = new Apple()
       case "Avocado" => node = new Avocado()
       case "Blackberry" => node = new Blackberry()
       case "Elderberry" => node = new Elderberry()
+      case "Lemon" => node = new Lemon()
+      case "Orange" => node = new Orange()
+      case "Tangerine" => node = new Tangerine()
       case _ => node = new Fruit()
     }
     node.weight = weight
@@ -48,6 +60,7 @@ class TreeFruit {
       insertHelper(root, node)
     }
   }
+
   def insertHelper(node: Fruit, newNode: Fruit): Unit = {
     if(newNode.getWeight < node.getWeight) {
       if(node.getLeft == null){
@@ -88,9 +101,11 @@ class TreeFruit {
       }
     }
   }
+
   def remove(weight :Int): Unit ={
     removeNode(root, weight)
   }
+
   def removeNode(node: Fruit, weight: Int) : Unit = {
     var current: Fruit = node
     var prev: Fruit = null
@@ -157,24 +172,28 @@ class TreeFruit {
       }
     }
   }
+
   def findSmallestValue(node: Fruit): Fruit = {
     if (node.left != null) {
       return findSmallestValue(node.left)
     }
     node
   }
+
   def findMaxValue(node: Fruit): Fruit = {
     if (node.right != null) {
       return findSmallestValue(node.right)
     }
     node
   }
+
   def getFruitList(): List[Fruit] = {
     val list = new ListBuffer[Fruit]()
     getFruits(root,list )
     val list2 = list.toList
     list2
   }
+
   def getFruits(node: Fruit, list:ListBuffer[Fruit]): Unit = {
     if(node != null){
       getFruits(node.getLeft, list)
@@ -182,6 +201,7 @@ class TreeFruit {
       getFruits(node.getRight, list)
     }
   }
+
   def getSuccessor(x: Fruit): Fruit = {
     if (x.right != null) return findSmallestValue(x.right)
     var y = x.getParent
